@@ -10,7 +10,9 @@ void LetterView::Render(sf::RenderWindow& window, const std::vector<std::unique_
 
 		for (const auto& part : letter->GetParts())
 		{
-			part.shape->setPosition(x + part.offset.x, y + part.offset.y);
+			part.shape->setPosition(sf::Vector2f(
+				x + part.offset.x,
+				y + part.offset.y));
 			part.shape->setFillColor(color);
 			window.draw(*part.shape);
 		}

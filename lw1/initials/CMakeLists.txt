@@ -8,4 +8,8 @@ add_executable(
         controller/LetterController.cpp
 )
 
-target_link_libraries(initials sfml-graphics sfml-window sfml-system)
+target_link_libraries(initials PRIVATE
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+)

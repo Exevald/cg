@@ -10,9 +10,7 @@ int main()
 {
 	WindowSettings settings;
 	sf::RenderWindow window(
-		sf::VideoMode(
-			settings.windowWidth,
-			settings.windowHeight),
+		sf::VideoMode(sf::Vector2u(settings.windowWidth, settings.windowHeight)),
 		settings.windowTitle);
 	window.setFramerateLimit(60);
 
@@ -28,14 +26,15 @@ int main()
 	{
 		float deltaTime = clock.restart().asSeconds();
 
-		sf::Event event{};
-		while (window.pollEvent(event))
+		while (auto event = window.pollEvent())
 		{
-			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+			if (event->is<sf::Event::Closed>()
+				|| (event->is<sf::Event::KeyPressed>() && event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape))
 			{
 				window.close();
 			}
 		}
+
 		LetterController::Update(letters, deltaTime);
 		window.clear(sf::Color(30, 30, 30));
 		LetterView::Render(window, letters);
