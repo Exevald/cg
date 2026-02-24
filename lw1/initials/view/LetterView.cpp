@@ -4,9 +4,9 @@ void LetterView::Render(sf::RenderWindow& window, const std::vector<std::unique_
 {
 	for (const auto& letter : letters)
 	{
-		float x = letter->GetX();
-		float y = letter->GetY();
-		sf::Color color = letter->GetColor();
+		const float x = letter->GetPosition().x;
+		const float y = letter->GetPosition().y;
+		const sf::Color color = letter->GetColor();
 
 		for (const auto& part : letter->GetParts())
 		{

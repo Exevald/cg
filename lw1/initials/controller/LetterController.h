@@ -2,7 +2,6 @@
 
 #include "../model/Letter.h"
 
-#include <SFML/System/Clock.hpp>
 #include <memory>
 #include <vector>
 

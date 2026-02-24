@@ -2,20 +2,17 @@
 
 #include "Letter.h"
 
-class LetterP : public Letter
-{
+class LetterP : public Letter {
 public:
-	LetterP(float x, float y, sf::Color color, float delay);
+	LetterP(float x, float y, sf::Color color);
 };
 
-class LetterK : public Letter
-{
+class LetterK : public Letter {
 public:
-	LetterK(float x, float y, sf::Color color, float delay);
+	LetterK(float x, float y, sf::Color color);
 };
 
-class LetterO : public Letter
-{
+class LetterO : public Letter {
 public:
-	LetterO(float x, float y, sf::Color color, float delay);
+	LetterO(float x, float y, sf::Color color);
 };

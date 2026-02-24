@@ -1,10 +1,16 @@
 #include "controller/LetterController.h"
-#include "model/Common.h"
 #include "model/Letters.h"
 #include "view/LetterView.h"
 
 #include <memory>
 #include <vector>
+
+struct WindowSettings
+{
+	std::string windowTitle = "Initials";
+	unsigned int windowWidth = 800;
+	unsigned int windowHeight = 600;
+};
 
 int main()
 {
@@ -16,10 +22,10 @@ int main()
 
 	std::vector<std::unique_ptr<Letter>> letters;
 
-	letters.push_back(std::make_unique<LetterK>(100, 300, sf::Color::White, 0.0f));
-	letters.push_back(std::make_unique<LetterK>(200, 300, sf::Color::Yellow, 0.1f));
-	letters.push_back(std::make_unique<LetterP>(300, 300, sf::Color::Red, 0.2f));
-	letters.push_back(std::make_unique<LetterO>(400, 300, sf::Color::Blue, 0.3f));
+	letters.push_back(std::make_unique<LetterK>(100, 300, sf::Color::White));
+	letters.push_back(std::make_unique<LetterK>(200, 300, sf::Color::Yellow));
+	letters.push_back(std::make_unique<LetterP>(300, 300, sf::Color::Red));
+	letters.push_back(std::make_unique<LetterO>(400, 300, sf::Color::Blue));
 
 	sf::Clock clock;
 	while (window.isOpen())

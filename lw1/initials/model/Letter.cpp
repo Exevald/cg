@@ -1,28 +1,56 @@
 #include "Letter.h"
 
-Letter::Letter(float x, float y, sf::Color color, float delay)
+#include <cmath>
+#include <random>
+
+namespace
+{
+std::mt19937& GetRandomGenerator()
+{
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	return gen;
+}
+} // namespace
+
+Letter::Letter(float x, float y, sf::Color color)
 	: m_baseCoords({ x, y })
 	, m_currentY(y)
 	, m_color(color)
-	, m_phaseDelay(delay)
 {
+
+	std::uniform_real_distribution<float> dist(-700.0f, -400.0f);
+	m_initialImpulse = dist(GetRandomGenerator());
 }
 
 void Letter::Update(float deltaTime)
 {
-	m_timer += deltaTime;
-	if (m_timer < m_phaseDelay)
+	if (m_hasStopped)
 	{
 		return;
 	}
 
-	constexpr float speedMultiplier = 60.0f;
-	m_velocity += m_gravity * speedMultiplier * deltaTime;
-	m_currentY += m_velocity * speedMultiplier * deltaTime;
+	m_timer += deltaTime;
+	if (!m_isActive)
+	{
+		m_velocity = m_initialImpulse;
+		m_isActive = true;
+	}
+
+	m_velocity += m_gravity * deltaTime;
+	m_currentY += m_velocity * deltaTime;
 
 	if (m_currentY >= m_baseCoords.y)
 	{
 		m_currentY = m_baseCoords.y;
-		m_velocity = m_jumpStrength;
+		// в чём измеряется m_dampingSpeed?
+		m_velocity = -m_velocity * m_dampingSpeed;
+
+		if (std::abs(m_velocity) < m_minVelocity)
+		{
+			m_velocity = 0.0f;
+			m_currentY = m_baseCoords.y;
+			m_hasStopped = true;
+		}
 	}
 }
