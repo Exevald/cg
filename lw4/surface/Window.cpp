@@ -9,24 +9,24 @@ Window::Window(const int w, const int h, const char* title)
 	glfwSetWindowUserPointer(m_window, this);
 
 	glfwSetMouseButtonCallback(m_window,
-		[](GLFWwindow* window, const int b, const int a, int m) {
-			const auto w = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		[](GLFWwindow* window, const int b, const int a, int) {
+			const auto windowModel = static_cast<Window*>(glfwGetWindowUserPointer(window));
 			if (b == GLFW_MOUSE_BUTTON_LEFT)
 			{
-				w->m_leftMouseDown = (a == GLFW_PRESS);
+				windowModel->m_leftMouseDown = (a == GLFW_PRESS);
 			}
 		});
 
 	glfwSetCursorPosCallback(m_window,
 		[](GLFWwindow* window, const double x, const double y) {
-			const auto s = static_cast<Window*>(glfwGetWindowUserPointer(window));
-			if (s->m_leftMouseDown)
+			const auto windowModel = static_cast<Window*>(glfwGetWindowUserPointer(window));
+			if (windowModel->m_leftMouseDown)
 			{
-				s->m_rotY += static_cast<float>(x - s->m_lastX) * 0.5f;
-				s->m_rotX += static_cast<float>(y - s->m_lastY) * 0.5f;
+				windowModel->m_rotY += static_cast<float>(x - windowModel->m_lastX) * 0.5f;
+				windowModel->m_rotX += static_cast<float>(y - windowModel->m_lastY) * 0.5f;
 			}
-			s->m_lastX = x;
-			s->m_lastY = y;
+			windowModel->m_lastX = x;
+			windowModel->m_lastY = y;
 		});
 }
 
@@ -42,18 +42,18 @@ void Window::OnRunStart()
 	m_initialized = true;
 }
 
-void Window::OnDraw(int w, int h)
+void Window::OnDraw(const int width, const int height)
 {
 	glEnable(GL_DEPTH_TEST);
-	glViewport(0, 0, w, h);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glViewport(0, 0, width, height);
+	glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(
 		45.0,
-		static_cast<float>(w) / static_cast<float>(h),
+		static_cast<float>(width) / static_cast<float>(height),
 		0.1,
 		100.0);
 

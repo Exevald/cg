@@ -42,20 +42,20 @@ void Window::OnRunStart()
 	m_initialized = true;
 }
 
-void Window::OnDraw(int w, int h)
+void Window::OnDraw(const int width, const int height)
 {
 	if (!m_initialized)
 	{
 		OnRunStart();
 	}
 
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, width, height);
 	glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	const float aspect = static_cast<float>(w) / static_cast<float>(h);
+	const float aspect = static_cast<float>(width) / static_cast<float>(height);
 	gluPerspective(45.0, aspect, 0.1, 100.0);
 
 	glMatrixMode(GL_MODELVIEW);

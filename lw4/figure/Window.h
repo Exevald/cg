@@ -9,7 +9,7 @@ public:
 	Window(int w, int h, const char* title);
 
 protected:
-	void OnDraw(int w, int h) override;
+	void OnDraw(int width, int height) override;
 
 private:
 	void OnRunStart();

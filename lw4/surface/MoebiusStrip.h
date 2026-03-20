@@ -22,7 +22,7 @@ private:
 
 	float m_radius;
 	float m_width;
-	int m_uSegments = 100;
-	int m_vSegments = 20;
+	int m_uSegmentsCount = 100;
+	int m_vSegmentsCount = 20;
 	std::vector<std::vector<Vertex>> m_mesh;
 };
