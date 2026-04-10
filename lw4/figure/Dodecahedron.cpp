@@ -44,13 +44,15 @@ void Dodecahedron::InitializeGeometry()
 	};
 }
 
-void Dodecahedron::Draw(bool transparent) const
+void Dodecahedron::Draw(const bool transparent) const
 {
 	glEnable(GL_DEPTH_TEST);
 
 	glDisable(GL_LIGHTING);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	DrawEdges();
+
+	DrawNumbers();
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
@@ -76,7 +78,6 @@ void Dodecahedron::Draw(bool transparent) const
 
 	glDisable(GL_LIGHTING);
 	glDisable(GL_BLEND);
-	DrawNumbers();
 }
 
 void Dodecahedron::DrawSolid() const
@@ -113,7 +114,6 @@ void Dodecahedron::DrawNumbers() const
 		center /= 5.0f;
 
 		glm::vec3 normal = glm::normalize(center);
-
 		std::string label = std::to_string(i + 1);
 
 		glPushMatrix();
@@ -126,7 +126,7 @@ void Dodecahedron::DrawNumbers() const
 			glRotatef(static_cast<float>(angle), axis.x, axis.y, axis.z);
 		}
 
-		float scale = 0.002f * m_size;
+		const float scale = 0.002f * m_size;
 		glScalef(scale, scale, scale);
 
 		constexpr float fontCharWidth = 104.0f;

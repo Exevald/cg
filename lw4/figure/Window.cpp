@@ -10,10 +10,10 @@ Window::Window(const int w, const int h, const char* title)
 
 	glfwSetMouseButtonCallback(m_window,
 		[](GLFWwindow* window, const int b, const int a, int m) {
-			const auto w = static_cast<Window*>(glfwGetWindowUserPointer(window));
+			const auto windowModel = static_cast<Window*>(glfwGetWindowUserPointer(window));
 			if (b == GLFW_MOUSE_BUTTON_LEFT)
 			{
-				w->m_leftMouseDown = (a == GLFW_PRESS);
+				windowModel->m_leftMouseDown = (a == GLFW_PRESS);
 			}
 		});
 
@@ -67,7 +67,7 @@ void Window::OnDraw(const int width, const int height)
 	glRotatef(m_rotY, 0, 1, 0);
 
 	constexpr float lightPos[] = { 5.0f, 5.0f, 10.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	glLightfv(GL_LIGHT7, GL_POSITION, lightPos);
 
 	m_shape.Draw(true);
 }

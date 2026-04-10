@@ -1,7 +1,6 @@
 #include "MoebiusStrip.h"
 
 #include <OpenGL/gl.h>
-#include <cmath>
 #include <glm/gtc/type_ptr.hpp>
 
 MoebiusStrip::MoebiusStrip(const float radius, const float width)
