@@ -5,6 +5,7 @@
 #include <GLUT/glut.h>
 #include <exception>
 #include <iostream>
+#include <memory>
 
 int main(int argc, char** argv)
 {
@@ -13,15 +14,16 @@ int main(int argc, char** argv)
 		glutInit(&argc, argv);
 
 		GameModel model;
-		GameView view;
-		GameController controller(model, view);
+		auto view = std::make_unique<GameView>();
+		GameController controller(model, *view);
 		controller.Run();
+		view.reset();
 	}
 	catch (const std::exception& exception)
 	{
 		std::cerr << exception.what() << std::endl;
-		return 1;
+		return EXIT_FAILURE;
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
